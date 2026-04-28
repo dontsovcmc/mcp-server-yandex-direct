@@ -40,7 +40,7 @@ src/mcp_server_yandex_direct/
 
 ### API Яндекс Директа
 
-- Документация: https://yandex.com/dev/direct/doc/en/concepts/overview
+- Документация: https://yandex.ru/dev/direct/doc/concepts/about.html
 - Base URL: `https://api.direct.yandex.com/json/v5/{service}`
 - Протокол: JSON-RPC-like — POST `{"method": "...", "params": {...}}`
 - Авторизация: `Authorization: Bearer {token}` (OAuth 2.0)
@@ -55,11 +55,11 @@ src/mcp_server_yandex_direct/
 ### Правила
 
 - **CRITICAL: НИКОГДА не коммить в master/main!** Все коммиты — только в рабочую ветку.
-- **Все изменения — через Pull Request в main.** Создать ветку, закоммитить, сделать rebase на свежий main, запушить, создать PR.
-- **ПЕРЕД КОММИТОМ проверить, не слита ли текущая ветка в main.** Если ветка уже слита (merged) — создать новую ветку от свежего main и делать новый PR. Никогда не пушить в уже слитую ветку.
-- **MANDATORY BEFORE EVERY `git push`: rebase onto fresh main:**
+- **Все изменения — через Pull Request в master.** Создать ветку, закоммитить, сделать rebase на свежий master, запушить, создать PR.
+- **ПЕРЕД КОММИТОМ проверить, не слита ли текущая ветка в master.** Если ветка уже слита (merged) — создать новую ветку от свежего master и делать новый PR. Никогда не пушить в уже слитую ветку.
+- **MANDATORY BEFORE EVERY `git push`: rebase onto fresh master:**
   ```bash
-  git checkout main && git remote update && git pull && git checkout - && git rebase main
+  git checkout master && git remote update && git pull && git checkout - && git rebase master
   ```
 - **NEVER use `git stash`.**
 - **NEVER use merge commits. ALWAYS rebase.**
