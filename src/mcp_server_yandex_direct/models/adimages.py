@@ -1,50 +1,52 @@
 """Pydantic models for AdImages service."""
 
+from pydantic import Field
+
 from .common import YDBase, LimitOffset, ActionResult
 
 
 class AdImagesSelectionCriteria(YDBase):
-    AdImageHashes: list[str] | None = None
-    Associated: str | None = None
+    AdImageHashes: list[str] | None = Field(default=None, description="Filter by ad image hashes")
+    Associated: str | None = Field(default=None, description="Filter by association status (YES or NO)")
 
 
 class AdImagesGetParams(YDBase):
-    SelectionCriteria: AdImagesSelectionCriteria
-    FieldNames: list[str]
-    Page: LimitOffset | None = None
+    SelectionCriteria: AdImagesSelectionCriteria = Field(description="Criteria for selecting ad images")
+    FieldNames: list[str] = Field(description="Ad image field names to return")
+    Page: LimitOffset | None = Field(default=None, description="Pagination settings")
 
 
 class AdImageGetItem(YDBase):
-    AdImageHash: str | None = None
-    OriginalUrl: str | None = None
-    PreviewUrl: str | None = None
-    Name: str | None = None
-    Type: str | None = None
-    Subtype: str | None = None
-    Associated: str | None = None
+    AdImageHash: str | None = Field(default=None, description="Unique hash of the ad image")
+    OriginalUrl: str | None = Field(default=None, description="URL of the original uploaded image")
+    PreviewUrl: str | None = Field(default=None, description="URL of the image preview")
+    Name: str | None = Field(default=None, description="Ad image name")
+    Type: str | None = Field(default=None, description="Image type")
+    Subtype: str | None = Field(default=None, description="Image subtype")
+    Associated: str | None = Field(default=None, description="Whether the image is associated with an ad (YES or NO)")
 
 
 class AdImagesGetResult(YDBase):
-    AdImages: list[AdImageGetItem] | None = None
-    LimitedBy: int | None = None
+    AdImages: list[AdImageGetItem] | None = Field(default=None, description="List of ad images matching the criteria")
+    LimitedBy: int | None = Field(default=None, description="Indicates next page offset if results were truncated")
 
 
 class AdImageAddItem(YDBase):
-    ImageData: str | None = None
-    Name: str | None = None
+    ImageData: str | None = Field(default=None, description="Base64-encoded image data")
+    Name: str | None = Field(default=None, description="Ad image name")
 
 
 class AdImagesAddParams(YDBase):
-    AdImages: list[AdImageAddItem]
+    AdImages: list[AdImageAddItem] = Field(description="List of ad images to add")
 
 
 class AdImagesAddResult(YDBase):
-    AddResults: list[ActionResult]
+    AddResults: list[ActionResult] = Field(description="Results of add operations")
 
 
 class AdImagesDeleteParams(YDBase):
-    SelectionCriteria: dict
+    SelectionCriteria: dict = Field(description="Selection criteria for ad images to delete")
 
 
 class AdImagesDeleteResult(YDBase):
-    DeleteResults: list[ActionResult]
+    DeleteResults: list[ActionResult] = Field(description="Results of delete operations")

@@ -2,32 +2,32 @@
 
 from mcp_server_yandex_direct.models.common import IdsCriteria, LimitOffset, ActionResult
 from mcp_server_yandex_direct.models.campaigns import (
-    CampaignsGetResult, CampaignGetItem, CampaignsAddResult, CampaignsGetParams,
+    CampaignsGetResult, CampaignsAddResult, CampaignsGetParams,
     CampaignsSelectionCriteria,
 )
-from mcp_server_yandex_direct.models.adgroups import AdGroupsGetResult, AdGroupGetItem
-from mcp_server_yandex_direct.models.ads import AdsGetResult, AdGetItem
-from mcp_server_yandex_direct.models.keywords import KeywordsGetResult, KeywordGetItem
-from mcp_server_yandex_direct.models.bids import BidsGetResult, BidGetItem
-from mcp_server_yandex_direct.models.bidmodifiers import BidModifiersGetResult, BidModifierGetItem
-from mcp_server_yandex_direct.models.sitelinks import SitelinksGetResult, SitelinksSetGetItem
-from mcp_server_yandex_direct.models.adimages import AdImagesGetResult, AdImageGetItem
-from mcp_server_yandex_direct.models.advideos import AdVideosGetResult, AdVideoGetItem
-from mcp_server_yandex_direct.models.adextensions import AdExtensionsGetResult, AdExtensionGetItem
-from mcp_server_yandex_direct.models.audiencetargets import AudienceTargetsGetResult, AudienceTargetGetItem
-from mcp_server_yandex_direct.models.retargetinglists import RetargetingListsGetResult, RetargetingListGetItem
+from mcp_server_yandex_direct.models.adgroups import AdGroupsGetResult
+from mcp_server_yandex_direct.models.ads import AdsGetResult
+from mcp_server_yandex_direct.models.keywords import KeywordsGetResult
+from mcp_server_yandex_direct.models.bids import BidsGetResult
+from mcp_server_yandex_direct.models.bidmodifiers import BidModifiersGetResult
+from mcp_server_yandex_direct.models.sitelinks import SitelinksGetResult
+from mcp_server_yandex_direct.models.adimages import AdImagesGetResult
+from mcp_server_yandex_direct.models.advideos import AdVideosGetResult
+from mcp_server_yandex_direct.models.adextensions import AdExtensionsGetResult
+from mcp_server_yandex_direct.models.audiencetargets import AudienceTargetsGetResult
+from mcp_server_yandex_direct.models.retargetinglists import RetargetingListsGetResult
 from mcp_server_yandex_direct.models.negativekeywordsharedsets import (
-    NegativeKeywordSharedSetsGetResult, NegativeKeywordSharedSetGetItem,
+    NegativeKeywordSharedSetsGetResult,
 )
-from mcp_server_yandex_direct.models.feeds import FeedsGetResult, FeedGetItem
-from mcp_server_yandex_direct.models.creatives import CreativesGetResult, CreativeGetItem
+from mcp_server_yandex_direct.models.feeds import FeedsGetResult
+from mcp_server_yandex_direct.models.creatives import CreativesGetResult
 from mcp_server_yandex_direct.models.keywordsresearch import DeduplicateResult, HasSearchVolumeResult
-from mcp_server_yandex_direct.models.leads import LeadsGetResult, LeadGetItem
+from mcp_server_yandex_direct.models.leads import LeadsGetResult
 from mcp_server_yandex_direct.models.changes import ChangesCheckResult, ChangesCheckDictionariesResult
 from mcp_server_yandex_direct.models.dictionaries import DictionariesGetResult
-from mcp_server_yandex_direct.models.clients import ClientsGetResult, ClientGetItem
-from mcp_server_yandex_direct.models.agencyclients import AgencyClientsGetResult, AgencyClientGetItem
-from mcp_server_yandex_direct.models.turbopages import TurboPagesGetResult, TurboPageGetItem
+from mcp_server_yandex_direct.models.clients import ClientsGetResult
+from mcp_server_yandex_direct.models.agencyclients import AgencyClientsGetResult
+from mcp_server_yandex_direct.models.turbopages import TurboPagesGetResult
 
 
 # ── Common ──

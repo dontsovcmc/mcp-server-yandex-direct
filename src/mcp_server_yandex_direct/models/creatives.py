@@ -1,45 +1,47 @@
 """Pydantic models for Creatives service."""
 
+from pydantic import Field
+
 from .common import YDBase, LimitOffset, ActionResult
 
 
 class CreativesSelectionCriteria(YDBase):
-    Ids: list[int] | None = None
-    Types: list[str] | None = None
+    Ids: list[int] | None = Field(default=None, description="Creative IDs to filter by")
+    Types: list[str] | None = Field(default=None, description="Creative types to filter by")
 
 
 class CreativesGetParams(YDBase):
-    SelectionCriteria: CreativesSelectionCriteria
-    FieldNames: list[str]
-    Page: LimitOffset | None = None
+    SelectionCriteria: CreativesSelectionCriteria = Field(description="Criteria for selecting creatives")
+    FieldNames: list[str] = Field(description="Names of fields to return")
+    Page: LimitOffset | None = Field(default=None, description="Pagination settings")
 
 
 class CreativeGetItem(YDBase):
-    Id: int | None = None
-    Type: str | None = None
-    Name: str | None = None
-    PreviewUrl: str | None = None
-    ThumbnailUrl: str | None = None
-    Width: int | None = None
-    Height: int | None = None
+    Id: int | None = Field(default=None, description="Creative ID")
+    Type: str | None = Field(default=None, description="Creative type")
+    Name: str | None = Field(default=None, description="Creative name")
+    PreviewUrl: str | None = Field(default=None, description="URL for the creative preview")
+    ThumbnailUrl: str | None = Field(default=None, description="URL for the creative thumbnail")
+    Width: int | None = Field(default=None, description="Creative width in pixels")
+    Height: int | None = Field(default=None, description="Creative height in pixels")
 
 
 class CreativesGetResult(YDBase):
-    Creatives: list[CreativeGetItem] | None = None
-    LimitedBy: int | None = None
+    Creatives: list[CreativeGetItem] | None = Field(default=None, description="List of creatives")
+    LimitedBy: int | None = Field(default=None, description="Offset for the next page if results are truncated")
 
 
 class CreativeAddItem(YDBase):
-    VideoExtensionCreative: dict | None = None
-    CpcVideoCreative: dict | None = None
-    CpmVideoCreative: dict | None = None
-    CanvasCreative: dict | None = None
-    HtmlVideoCreative: dict | None = None
+    VideoExtensionCreative: dict | None = Field(default=None, description="Video extension creative parameters")
+    CpcVideoCreative: dict | None = Field(default=None, description="CPC video creative parameters")
+    CpmVideoCreative: dict | None = Field(default=None, description="CPM video creative parameters")
+    CanvasCreative: dict | None = Field(default=None, description="Canvas creative parameters")
+    HtmlVideoCreative: dict | None = Field(default=None, description="HTML5 video creative parameters")
 
 
 class CreativesAddParams(YDBase):
-    Creatives: list[CreativeAddItem]
+    Creatives: list[CreativeAddItem] = Field(description="Creatives to add")
 
 
 class CreativesAddResult(YDBase):
-    AddResults: list[ActionResult]
+    AddResults: list[ActionResult] = Field(description="Results of the add operation")

@@ -1,6 +1,5 @@
 """Tests for Sitelinks MCP tools."""
 
-import json
 import pytest
 from unittest.mock import patch
 from mcp.shared.memory import create_connected_server_and_client_session

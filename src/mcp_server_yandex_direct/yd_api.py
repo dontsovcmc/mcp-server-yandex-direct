@@ -7,11 +7,9 @@ Protocol: JSON-RPC-like — POST with {"method": "...", "params": {...}}
 """
 
 import logging
-import sys
 
 import requests
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", stream=sys.stderr)
 log = logging.getLogger(__name__)
 
 BASE_URL = "https://api.direct.yandex.com/json/v5"
@@ -20,7 +18,10 @@ BASE_URL = "https://api.direct.yandex.com/json/v5"
 class YandexDirectAPI:
     """Synchronous client for Yandex Direct API v5."""
 
-    def __init__(self, token: str, client_login: str = "", lang: str = ""):
+    def __init__(self, token: str, client_login: str = "", lang: str = "",
+                 timeout: int = 30, file_timeout: int = 120):
+        self.timeout = timeout
+        self.file_timeout = file_timeout
         self.session = requests.Session()
         self.session.headers.update({
             "Authorization": f"Bearer {token}",
@@ -37,9 +38,10 @@ class YandexDirectAPI:
         body: dict = {"method": method}
         if params is not None:
             body["params"] = params
-        resp = self.session.post(f"{BASE_URL}/{service}", json=body, timeout=30)
+        resp = self.session.post(f"{BASE_URL}/{service}", json=body, timeout=self.timeout)
         if not resp.ok:
-            raise RuntimeError(f"{service}.{method} -> HTTP {resp.status_code}: {resp.text}")
+            log.debug("%s.%s error body: %s", service, method, resp.text)
+            raise RuntimeError(f"{service}.{method} -> HTTP {resp.status_code}")
         data = resp.json()
         if "error" in data:
             err = data["error"]
@@ -58,10 +60,11 @@ class YandexDirectAPI:
             f"{BASE_URL}/reports",
             json=body,
             headers=headers,
-            timeout=120,
+            timeout=self.file_timeout,
         )
         if not resp.ok:
-            raise RuntimeError(f"reports -> HTTP {resp.status_code}: {resp.text}")
+            log.debug("reports error body: %s", resp.text)
+            raise RuntimeError(f"reports -> HTTP {resp.status_code}")
         return resp.text
 
     # ── Campaigns ──────────────────────────────────────────────────────

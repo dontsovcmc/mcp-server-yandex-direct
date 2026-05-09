@@ -1,6 +1,6 @@
 [project]
 name = "mcp-server-yandex-direct"
-version = "0.1.1"
+version = "0.2.0"
 description = "MCP server for Yandex Direct API v5 — campaigns, ads, keywords, bids, audiences"
 readme = "README.md"
 license = {text = "MIT"}
@@ -9,6 +9,7 @@ dependencies = [
     "mcp>=1.0.0",
     "requests>=2.28",
     "pydantic>=2.0",
+    "python-dotenv>=1.0",
 ]
 
 [project.scripts]

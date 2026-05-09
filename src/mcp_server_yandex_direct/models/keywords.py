@@ -2,6 +2,8 @@
 
 from enum import Enum
 
+from pydantic import Field
+
 from .common import YDBase, IdsCriteria, LimitOffset, ActionResult
 
 
@@ -17,87 +19,87 @@ class KeywordStatusEnum(str, Enum):
 
 
 class KeywordsSelectionCriteria(YDBase):
-    Ids: list[int] | None = None
-    AdGroupIds: list[int] | None = None
-    CampaignIds: list[int] | None = None
-    States: list[str] | None = None
-    Statuses: list[str] | None = None
-    ModifiedSince: str | None = None
-    ServingStatuses: list[str] | None = None
+    Ids: list[int] | None = Field(default=None, description="Filter by keyword IDs")
+    AdGroupIds: list[int] | None = Field(default=None, description="Filter by ad group IDs")
+    CampaignIds: list[int] | None = Field(default=None, description="Filter by campaign IDs")
+    States: list[str] | None = Field(default=None, description="Filter by keyword states")
+    Statuses: list[str] | None = Field(default=None, description="Filter by moderation statuses")
+    ModifiedSince: str | None = Field(default=None, description="Return keywords modified after this timestamp")
+    ServingStatuses: list[str] | None = Field(default=None, description="Filter by serving statuses")
 
 
 class KeywordsGetParams(YDBase):
-    SelectionCriteria: KeywordsSelectionCriteria
-    FieldNames: list[str]
-    Page: LimitOffset | None = None
+    SelectionCriteria: KeywordsSelectionCriteria = Field(description="Criteria for selecting keywords")
+    FieldNames: list[str] = Field(description="Keyword field names to return")
+    Page: LimitOffset | None = Field(default=None, description="Pagination settings")
 
 
 class KeywordGetItem(YDBase):
-    Id: int | None = None
-    Keyword: str | None = None
-    AdGroupId: int | None = None
-    CampaignId: int | None = None
-    Bid: int | None = None
-    ContextBid: int | None = None
-    StrategyPriority: str | None = None
-    State: str | None = None
-    Status: str | None = None
-    ServingStatus: str | None = None
-    UserParam1: str | None = None
-    UserParam2: str | None = None
-    ProductivityL: float | None = None
-    Productivity: float | None = None
-    StatisticsSearch: dict | None = None
-    StatisticsNetwork: dict | None = None
+    Id: int | None = Field(default=None, description="Keyword ID")
+    Keyword: str | None = Field(default=None, description="Keyword text with operators")
+    AdGroupId: int | None = Field(default=None, description="ID of the parent ad group")
+    CampaignId: int | None = Field(default=None, description="ID of the parent campaign")
+    Bid: int | None = Field(default=None, description="Search bid in currency units (micros)")
+    ContextBid: int | None = Field(default=None, description="Network bid in currency units (micros)")
+    StrategyPriority: str | None = Field(default=None, description="Priority for automatic bidding (LOW, NORMAL, HIGH)")
+    State: str | None = Field(default=None, description="Keyword state")
+    Status: str | None = Field(default=None, description="Moderation status")
+    ServingStatus: str | None = Field(default=None, description="Serving status of the keyword")
+    UserParam1: str | None = Field(default=None, description="Custom user parameter 1 for URL substitution")
+    UserParam2: str | None = Field(default=None, description="Custom user parameter 2 for URL substitution")
+    ProductivityL: float | None = Field(default=None, description="Lower bound of keyword productivity")
+    Productivity: float | None = Field(default=None, description="Keyword productivity score")
+    StatisticsSearch: dict | None = Field(default=None, description="Search impression statistics")
+    StatisticsNetwork: dict | None = Field(default=None, description="Network impression statistics")
 
 
 class KeywordsGetResult(YDBase):
-    Keywords: list[KeywordGetItem] | None = None
-    LimitedBy: int | None = None
+    Keywords: list[KeywordGetItem] | None = Field(default=None, description="List of keywords matching the criteria")
+    LimitedBy: int | None = Field(default=None, description="Indicates next page offset if results were truncated")
 
 
 class KeywordAddItem(YDBase):
-    Keyword: str
-    AdGroupId: int
-    Bid: int | None = None
-    ContextBid: int | None = None
-    StrategyPriority: str | None = None
-    UserParam1: str | None = None
-    UserParam2: str | None = None
+    Keyword: str = Field(description="Keyword text with operators")
+    AdGroupId: int = Field(description="ID of the ad group to add the keyword to")
+    Bid: int | None = Field(default=None, description="Search bid in currency units (micros)")
+    ContextBid: int | None = Field(default=None, description="Network bid in currency units (micros)")
+    StrategyPriority: str | None = Field(default=None, description="Priority for automatic bidding (LOW, NORMAL, HIGH)")
+    UserParam1: str | None = Field(default=None, description="Custom user parameter 1 for URL substitution")
+    UserParam2: str | None = Field(default=None, description="Custom user parameter 2 for URL substitution")
 
 
 class KeywordsAddParams(YDBase):
-    Keywords: list[KeywordAddItem]
+    Keywords: list[KeywordAddItem] = Field(description="List of keywords to add")
 
 
 class KeywordsAddResult(YDBase):
-    AddResults: list[ActionResult]
+    AddResults: list[ActionResult] = Field(description="Results of add operations")
 
 
 class KeywordUpdateItem(YDBase):
-    Id: int
-    Keyword: str | None = None
-    Bid: int | None = None
-    ContextBid: int | None = None
-    StrategyPriority: str | None = None
-    UserParam1: str | None = None
-    UserParam2: str | None = None
+    Id: int = Field(description="ID of the keyword to update")
+    Keyword: str | None = Field(default=None, description="Keyword text with operators")
+    Bid: int | None = Field(default=None, description="Search bid in currency units (micros)")
+    ContextBid: int | None = Field(default=None, description="Network bid in currency units (micros)")
+    StrategyPriority: str | None = Field(default=None, description="Priority for automatic bidding (LOW, NORMAL, HIGH)")
+    UserParam1: str | None = Field(default=None, description="Custom user parameter 1 for URL substitution")
+    UserParam2: str | None = Field(default=None, description="Custom user parameter 2 for URL substitution")
 
 
 class KeywordsUpdateParams(YDBase):
-    Keywords: list[KeywordUpdateItem]
+    Keywords: list[KeywordUpdateItem] = Field(description="List of keywords to update")
 
 
 class KeywordsUpdateResult(YDBase):
-    UpdateResults: list[ActionResult]
+    UpdateResults: list[ActionResult] = Field(description="Results of update operations")
 
 
 class KeywordsActionParams(YDBase):
     """Used by delete, suspend, resume."""
-    SelectionCriteria: IdsCriteria
+    SelectionCriteria: IdsCriteria = Field(description="IDs of keywords to act on")
 
 
 class KeywordsActionResult(YDBase):
-    DeleteResults: list[ActionResult] | None = None
-    SuspendResults: list[ActionResult] | None = None
-    ResumeResults: list[ActionResult] | None = None
+    DeleteResults: list[ActionResult] | None = Field(default=None, description="Results of delete operations")
+    SuspendResults: list[ActionResult] | None = Field(default=None, description="Results of suspend operations")
+    ResumeResults: list[ActionResult] | None = Field(default=None, description="Results of resume operations")

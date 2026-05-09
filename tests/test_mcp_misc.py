@@ -1,6 +1,5 @@
-"""Tests for misc MCP tools: Creatives, KeywordsResearch, Leads, Dictionaries, TurboPages, Clients, AgencyClients."""
+"""Tests for misc MCP tools, invalid JSON, and API errors."""
 
-import json
 import pytest
 from unittest.mock import patch
 from mcp.shared.memory import create_connected_server_and_client_session
@@ -127,3 +126,78 @@ async def test_yd_agencyclients_update():
         async with create_connected_server_and_client_session(mcp._mcp_server) as s:
             r = await s.call_tool("yd_agencyclients_update", {"params_json": '{}'})
             assert not r.isError
+
+
+# ── Security: invalid JSON ─────────────────────────────────────────
+
+
+@pytest.mark.anyio
+async def test_campaigns_get_invalid_json():
+    with patch("mcp_server_yandex_direct.server.YandexDirectAPI"):
+        async with create_connected_server_and_client_session(mcp._mcp_server) as s:
+            r = await s.call_tool("yd_campaigns_get", {"params_json": "not-json"})
+            assert r.isError
+            assert "Invalid JSON" in r.content[0].text
+
+
+@pytest.mark.anyio
+async def test_ads_add_invalid_json():
+    with patch("mcp_server_yandex_direct.server.YandexDirectAPI"):
+        async with create_connected_server_and_client_session(mcp._mcp_server) as s:
+            r = await s.call_tool("yd_ads_add", {"params_json": "{{bad"})
+            assert r.isError
+            assert "Invalid JSON" in r.content[0].text
+
+
+@pytest.mark.anyio
+async def test_reports_get_invalid_json():
+    with patch("mcp_server_yandex_direct.server.YandexDirectAPI"):
+        async with create_connected_server_and_client_session(mcp._mcp_server) as s:
+            r = await s.call_tool("yd_reports_get", {"params_json": "[invalid"})
+            assert r.isError
+            assert "Invalid JSON" in r.content[0].text
+
+
+@pytest.mark.anyio
+async def test_reports_get_invalid_headers_json():
+    with patch("mcp_server_yandex_direct.server.YandexDirectAPI"):
+        async with create_connected_server_and_client_session(mcp._mcp_server) as s:
+            r = await s.call_tool("yd_reports_get", {
+                "params_json": "{}",
+                "headers_json": "not-json",
+            })
+            assert r.isError
+            assert "Invalid JSON" in r.content[0].text
+
+
+# ── API errors ──────────────────────────────────────────────────────
+
+
+@pytest.mark.anyio
+async def test_campaigns_get_api_error():
+    with patch("mcp_server_yandex_direct.server.YandexDirectAPI") as M:
+        M.return_value.campaigns_get.side_effect = RuntimeError("campaigns.get -> HTTP 500")
+        async with create_connected_server_and_client_session(mcp._mcp_server) as s:
+            r = await s.call_tool("yd_campaigns_get", {"params_json": '{"SelectionCriteria": {}, "FieldNames": ["Id"]}'})
+            assert r.isError
+            assert "500" in r.content[0].text
+
+
+@pytest.mark.anyio
+async def test_ads_get_api_error():
+    with patch("mcp_server_yandex_direct.server.YandexDirectAPI") as M:
+        M.return_value.ads_get.side_effect = RuntimeError("ads.get -> HTTP 403")
+        async with create_connected_server_and_client_session(mcp._mcp_server) as s:
+            r = await s.call_tool("yd_ads_get", {"params_json": '{"SelectionCriteria": {}, "FieldNames": ["Id"]}'})
+            assert r.isError
+            assert "403" in r.content[0].text
+
+
+@pytest.mark.anyio
+async def test_reports_get_api_error():
+    with patch("mcp_server_yandex_direct.server.YandexDirectAPI") as M:
+        M.return_value.reports_get.side_effect = RuntimeError("reports -> HTTP 401")
+        async with create_connected_server_and_client_session(mcp._mcp_server) as s:
+            r = await s.call_tool("yd_reports_get", {"params_json": '{"params": {}}'})
+            assert r.isError
+            assert "401" in r.content[0].text
