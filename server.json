@@ -6,12 +6,12 @@
     "url": "https://github.com/dontsovcmc/mcp-server-yandex-direct",
     "source": "github"
   },
-  "version": "0.1.1",
+  "version": "0.2.0",
   "packages": [
     {
       "registryType": "pypi",
       "identifier": "mcp-server-yandex-direct",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "transport": {
         "type": "stdio"
       },
@@ -28,6 +28,14 @@
         },
         {
           "name": "YD_LANG",
+          "isRequired": false
+        },
+        {
+          "name": "YD_TIMEOUT",
+          "isRequired": false
+        },
+        {
+          "name": "YD_FILE_TIMEOUT",
           "isRequired": false
         }
       ]

@@ -2,6 +2,8 @@
 
 from enum import Enum
 
+from pydantic import Field
+
 from .common import YDBase, IdsCriteria, LimitOffset, ActionResult
 
 
@@ -24,80 +26,80 @@ class AdGroupStatusEnum(str, Enum):
 
 
 class AdGroupsSelectionCriteria(YDBase):
-    CampaignIds: list[int] | None = None
-    Ids: list[int] | None = None
-    Types: list[str] | None = None
-    Statuses: list[str] | None = None
-    AppIconStatuses: list[str] | None = None
+    CampaignIds: list[int] | None = Field(default=None, description="Filter by campaign IDs")
+    Ids: list[int] | None = Field(default=None, description="Filter by ad group IDs")
+    Types: list[str] | None = Field(default=None, description="Filter by ad group types")
+    Statuses: list[str] | None = Field(default=None, description="Filter by moderation statuses")
+    AppIconStatuses: list[str] | None = Field(default=None, description="Filter by app icon moderation statuses")
 
 
 class AdGroupsGetParams(YDBase):
-    SelectionCriteria: AdGroupsSelectionCriteria
-    FieldNames: list[str]
-    DynamicTextAdGroupFieldNames: list[str] | None = None
-    DynamicTextFeedAdGroupFieldNames: list[str] | None = None
-    MobileAppAdGroupFieldNames: list[str] | None = None
-    SmartAdGroupFieldNames: list[str] | None = None
-    UnifiedAdGroupFieldNames: list[str] | None = None
-    Page: LimitOffset | None = None
+    SelectionCriteria: AdGroupsSelectionCriteria = Field(description="Criteria for selecting ad groups")
+    FieldNames: list[str] = Field(description="Ad group field names to return")
+    DynamicTextAdGroupFieldNames: list[str] | None = Field(default=None, description="Fields to return for dynamic text ad groups")
+    DynamicTextFeedAdGroupFieldNames: list[str] | None = Field(default=None, description="Fields to return for dynamic text feed ad groups")
+    MobileAppAdGroupFieldNames: list[str] | None = Field(default=None, description="Fields to return for mobile app ad groups")
+    SmartAdGroupFieldNames: list[str] | None = Field(default=None, description="Fields to return for smart ad groups")
+    UnifiedAdGroupFieldNames: list[str] | None = Field(default=None, description="Fields to return for unified ad groups")
+    Page: LimitOffset | None = Field(default=None, description="Pagination settings")
 
 
 class AdGroupGetItem(YDBase):
-    Id: int | None = None
-    Name: str | None = None
-    CampaignId: int | None = None
-    RegionIds: list[int] | None = None
-    NegativeKeywords: dict | None = None
-    NegativeKeywordSharedSetIds: list[int] | None = None
-    TrackingParams: str | None = None
-    Status: str | None = None
-    ServingStatus: str | None = None
-    Type: str | None = None
-    Subtype: str | None = None
+    Id: int | None = Field(default=None, description="Ad group ID")
+    Name: str | None = Field(default=None, description="Ad group name")
+    CampaignId: int | None = Field(default=None, description="ID of the parent campaign")
+    RegionIds: list[int] | None = Field(default=None, description="Geo-targeting region IDs")
+    NegativeKeywords: dict | None = Field(default=None, description="Ad group negative keywords")
+    NegativeKeywordSharedSetIds: list[int] | None = Field(default=None, description="IDs of shared negative keyword sets")
+    TrackingParams: str | None = Field(default=None, description="Tracking parameters for URLs")
+    Status: str | None = Field(default=None, description="Moderation status")
+    ServingStatus: str | None = Field(default=None, description="Serving status of the ad group")
+    Type: str | None = Field(default=None, description="Ad group type")
+    Subtype: str | None = Field(default=None, description="Ad group subtype")
 
 
 class AdGroupsGetResult(YDBase):
-    AdGroups: list[AdGroupGetItem] | None = None
-    LimitedBy: int | None = None
+    AdGroups: list[AdGroupGetItem] | None = Field(default=None, description="List of ad groups matching the criteria")
+    LimitedBy: int | None = Field(default=None, description="Indicates next page offset if results were truncated")
 
 
 class AdGroupAddItem(YDBase):
-    Name: str
-    CampaignId: int
-    RegionIds: list[int]
-    NegativeKeywords: dict | None = None
-    NegativeKeywordSharedSetIds: list[int] | None = None
-    TrackingParams: str | None = None
+    Name: str = Field(description="Ad group name")
+    CampaignId: int = Field(description="ID of the parent campaign")
+    RegionIds: list[int] = Field(description="Geo-targeting region IDs")
+    NegativeKeywords: dict | None = Field(default=None, description="Ad group negative keywords")
+    NegativeKeywordSharedSetIds: list[int] | None = Field(default=None, description="IDs of shared negative keyword sets")
+    TrackingParams: str | None = Field(default=None, description="Tracking parameters for URLs")
 
 
 class AdGroupsAddParams(YDBase):
-    AdGroups: list[AdGroupAddItem]
+    AdGroups: list[AdGroupAddItem] = Field(description="List of ad groups to add")
 
 
 class AdGroupsAddResult(YDBase):
-    AddResults: list[ActionResult]
+    AddResults: list[ActionResult] = Field(description="Results of add operations")
 
 
 class AdGroupUpdateItem(YDBase):
-    Id: int
-    Name: str | None = None
-    RegionIds: list[int] | None = None
-    NegativeKeywords: dict | None = None
-    NegativeKeywordSharedSetIds: list[int] | None = None
-    TrackingParams: str | None = None
+    Id: int = Field(description="ID of the ad group to update")
+    Name: str | None = Field(default=None, description="Ad group name")
+    RegionIds: list[int] | None = Field(default=None, description="Geo-targeting region IDs")
+    NegativeKeywords: dict | None = Field(default=None, description="Ad group negative keywords")
+    NegativeKeywordSharedSetIds: list[int] | None = Field(default=None, description="IDs of shared negative keyword sets")
+    TrackingParams: str | None = Field(default=None, description="Tracking parameters for URLs")
 
 
 class AdGroupsUpdateParams(YDBase):
-    AdGroups: list[AdGroupUpdateItem]
+    AdGroups: list[AdGroupUpdateItem] = Field(description="List of ad groups to update")
 
 
 class AdGroupsUpdateResult(YDBase):
-    UpdateResults: list[ActionResult]
+    UpdateResults: list[ActionResult] = Field(description="Results of update operations")
 
 
 class AdGroupsDeleteParams(YDBase):
-    SelectionCriteria: IdsCriteria
+    SelectionCriteria: IdsCriteria = Field(description="IDs of ad groups to delete")
 
 
 class AdGroupsDeleteResult(YDBase):
-    DeleteResults: list[ActionResult]
+    DeleteResults: list[ActionResult] = Field(description="Results of delete operations")

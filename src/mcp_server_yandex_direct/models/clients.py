@@ -1,50 +1,52 @@
 """Pydantic models for Clients service."""
 
+from pydantic import Field
+
 from .common import YDBase, ActionResult
 
 
 class ClientsSelectionCriteria(YDBase):
-    Logins: list[str] | None = None
-    Archived: str | None = None
+    Logins: list[str] | None = Field(default=None, description="Client logins to filter by")
+    Archived: str | None = Field(default=None, description="Filter by archived status (YES or NO)")
 
 
 class ClientsGetParams(YDBase):
-    FieldNames: list[str]
+    FieldNames: list[str] = Field(description="Names of fields to return")
 
 
 class ClientGetItem(YDBase):
-    Login: str | None = None
-    ClientId: int | None = None
-    ClientInfo: str | None = None
-    AccountQuality: float | None = None
-    Type: str | None = None
-    CountryId: int | None = None
-    Currency: str | None = None
-    Phone: str | None = None
-    Archived: str | None = None
-    CreatedAt: str | None = None
-    Grants: list[dict] | None = None
-    Notification: dict | None = None
-    Representatives: list[dict] | None = None
-    Restrictions: list[dict] | None = None
-    Settings: list[dict] | None = None
-    BonusesCount: int | None = None
+    Login: str | None = Field(default=None, description="Client login")
+    ClientId: int | None = Field(default=None, description="Client ID")
+    ClientInfo: str | None = Field(default=None, description="Client description text")
+    AccountQuality: float | None = Field(default=None, description="Account quality score")
+    Type: str | None = Field(default=None, description="Client type (CLIENT or AGENCY)")
+    CountryId: int | None = Field(default=None, description="Country ID from the geo regions dictionary")
+    Currency: str | None = Field(default=None, description="Account currency code")
+    Phone: str | None = Field(default=None, description="Contact phone number")
+    Archived: str | None = Field(default=None, description="Whether the client is archived (YES or NO)")
+    CreatedAt: str | None = Field(default=None, description="Account creation date")
+    Grants: list[dict] | None = Field(default=None, description="Granted access permissions")
+    Notification: dict | None = Field(default=None, description="Notification settings")
+    Representatives: list[dict] | None = Field(default=None, description="Agency representatives for this client")
+    Restrictions: list[dict] | None = Field(default=None, description="Account restrictions")
+    Settings: list[dict] | None = Field(default=None, description="Client settings")
+    BonusesCount: int | None = Field(default=None, description="Number of bonus points available")
 
 
 class ClientsGetResult(YDBase):
-    Clients: list[ClientGetItem] | None = None
+    Clients: list[ClientGetItem] | None = Field(default=None, description="List of clients")
 
 
 class ClientUpdateItem(YDBase):
-    ClientInfo: str | None = None
-    Notification: dict | None = None
-    Phone: str | None = None
-    Settings: list[dict] | None = None
+    ClientInfo: str | None = Field(default=None, description="New client description text")
+    Notification: dict | None = Field(default=None, description="New notification settings")
+    Phone: str | None = Field(default=None, description="New contact phone number")
+    Settings: list[dict] | None = Field(default=None, description="New client settings")
 
 
 class ClientsUpdateParams(YDBase):
-    Clients: list[ClientUpdateItem]
+    Clients: list[ClientUpdateItem] = Field(description="Clients to update")
 
 
 class ClientsUpdateResult(YDBase):
-    UpdateResults: list[ActionResult]
+    UpdateResults: list[ActionResult] = Field(description="Results of the update operation")

@@ -2,7 +2,7 @@
 
 # mcp-server-yandex-direct
 
-[![Version](https://img.shields.io/badge/version-0.1.1-blue)](https://github.com/dontsovcmc/mcp-server-yandex-direct)
+[![Version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/dontsovcmc/mcp-server-yandex-direct)
 
 MCP-сервер для работы с [Yandex Direct API v5](https://yandex.ru/dev/direct/doc/concepts/about.html) через Claude Code, Claude Desktop и другие MCP-совместимые клиенты.
 
@@ -23,11 +23,19 @@ pip install mcp-server-yandex-direct
 
 ### Переменные окружения
 
-| Переменная | Обязательная | Описание |
-|------------|:------------:|----------|
-| `YD_TOKEN` | Да | OAuth-токен Yandex Direct API |
-| `YD_CLIENT_LOGIN` | Нет | Логин клиента для агентских аккаунтов |
-| `YD_LANG` | Нет | Язык ответов: `ru`, `en`, `uk` |
+| Переменная | Обязательная | По умолчанию | Описание |
+|------------|:------------:|:------------:|----------|
+| `YD_TOKEN` | Да | — | OAuth-токен Yandex Direct API |
+| `YD_CLIENT_LOGIN` | Нет | — | Логин клиента для агентских аккаунтов |
+| `YD_LANG` | Нет | — | Язык ответов: `ru`, `en`, `uk` |
+| `YD_TIMEOUT` | Нет | `30` | Таймаут HTTP-запросов (секунды) |
+| `YD_FILE_TIMEOUT` | Нет | `120` | Таймаут отчётов Reports API (секунды) |
+
+Переменные можно загрузить из файла:
+
+```bash
+mcp-server-yandex-direct --env /path/to/.env
+```
 
 ### Claude Code
 
