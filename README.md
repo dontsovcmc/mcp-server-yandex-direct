@@ -2,7 +2,7 @@
 
 # mcp-server-yandex-direct
 
-[![Version](https://img.shields.io/badge/version-0.2.0-blue)](https://github.com/dontsovcmc/mcp-server-yandex-direct)
+[![Version](https://img.shields.io/badge/version-0.3.0-blue)](https://github.com/dontsovcmc/mcp-server-yandex-direct)
 
 MCP-сервер, CLI-утилита и библиотека Pydantic-моделей для [Yandex Direct API v5](https://yandex.ru/dev/direct/doc/concepts/about.html).
 
@@ -34,201 +34,201 @@ MCP-сервер, CLI-утилита и библиотека Pydantic-модел
 
 ## Возможности
 
-79 инструментов для всех 22 сервисов Yandex Direct API v5 + Reports.
+79 действий для всех 22 сервисов Yandex Direct API v5 + Reports. Сервер использует паттерн **search+execute**: 2 MCP-инструмента (`yd_search`, `yd_execute`) вместо 79 — AI получает полные Pydantic-схемы параметров по запросу, не загружая весь контекст сразу.
 
 ### Кампании
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_campaigns_get` | `campaigns-get` | Получить список кампаний |
-| `yd_campaigns_add` | `campaigns-add` | Создать кампании |
-| `yd_campaigns_update` | `campaigns-update` | Обновить кампании |
-| `yd_campaigns_delete` | `campaigns-delete` | Удалить кампании |
-| `yd_campaigns_suspend` | `campaigns-suspend` | Остановить кампании |
-| `yd_campaigns_resume` | `campaigns-resume` | Возобновить кампании |
-| `yd_campaigns_archive` | `campaigns-archive` | Архивировать кампании |
-| `yd_campaigns_unarchive` | `campaigns-unarchive` | Разархивировать кампании |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `campaigns-get` | `campaigns-get` | Получить список кампаний |
+| `campaigns-add` | `campaigns-add` | Создать кампании |
+| `campaigns-update` | `campaigns-update` | Обновить кампании |
+| `campaigns-delete` | `campaigns-delete` | Удалить кампании |
+| `campaigns-suspend` | `campaigns-suspend` | Остановить кампании |
+| `campaigns-resume` | `campaigns-resume` | Возобновить кампании |
+| `campaigns-archive` | `campaigns-archive` | Архивировать кампании |
+| `campaigns-unarchive` | `campaigns-unarchive` | Разархивировать кампании |
 
 ### Группы объявлений
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_adgroups_get` | `adgroups-get` | Получить группы объявлений |
-| `yd_adgroups_add` | `adgroups-add` | Создать группы объявлений |
-| `yd_adgroups_update` | `adgroups-update` | Обновить группы объявлений |
-| `yd_adgroups_delete` | `adgroups-delete` | Удалить группы объявлений |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `adgroups-get` | `adgroups-get` | Получить группы объявлений |
+| `adgroups-add` | `adgroups-add` | Создать группы объявлений |
+| `adgroups-update` | `adgroups-update` | Обновить группы объявлений |
+| `adgroups-delete` | `adgroups-delete` | Удалить группы объявлений |
 
 ### Объявления
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_ads_get` | `ads-get` | Получить объявления |
-| `yd_ads_add` | `ads-add` | Создать объявления |
-| `yd_ads_update` | `ads-update` | Обновить объявления |
-| `yd_ads_delete` | `ads-delete` | Удалить объявления |
-| `yd_ads_suspend` | `ads-suspend` | Остановить объявления |
-| `yd_ads_resume` | `ads-resume` | Возобновить объявления |
-| `yd_ads_archive` | `ads-archive` | Архивировать объявления |
-| `yd_ads_unarchive` | `ads-unarchive` | Разархивировать объявления |
-| `yd_ads_moderate` | `ads-moderate` | Отправить объявления на модерацию |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `ads-get` | `ads-get` | Получить объявления |
+| `ads-add` | `ads-add` | Создать объявления |
+| `ads-update` | `ads-update` | Обновить объявления |
+| `ads-delete` | `ads-delete` | Удалить объявления |
+| `ads-suspend` | `ads-suspend` | Остановить объявления |
+| `ads-resume` | `ads-resume` | Возобновить объявления |
+| `ads-archive` | `ads-archive` | Архивировать объявления |
+| `ads-unarchive` | `ads-unarchive` | Разархивировать объявления |
+| `ads-moderate` | `ads-moderate` | Отправить объявления на модерацию |
 
 ### Ключевые фразы
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_keywords_get` | `keywords-get` | Получить ключевые фразы |
-| `yd_keywords_add` | `keywords-add` | Добавить ключевые фразы |
-| `yd_keywords_update` | `keywords-update` | Обновить ключевые фразы |
-| `yd_keywords_delete` | `keywords-delete` | Удалить ключевые фразы |
-| `yd_keywords_suspend` | `keywords-suspend` | Остановить ключевые фразы |
-| `yd_keywords_resume` | `keywords-resume` | Возобновить ключевые фразы |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `keywords-get` | `keywords-get` | Получить ключевые фразы |
+| `keywords-add` | `keywords-add` | Добавить ключевые фразы |
+| `keywords-update` | `keywords-update` | Обновить ключевые фразы |
+| `keywords-delete` | `keywords-delete` | Удалить ключевые фразы |
+| `keywords-suspend` | `keywords-suspend` | Остановить ключевые фразы |
+| `keywords-resume` | `keywords-resume` | Возобновить ключевые фразы |
 
 ### Ставки
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_bids_get` | `bids-get` | Получить ставки |
-| `yd_bids_set` | `bids-set` | Назначить ставки |
-| `yd_bids_set_auto` | `bids-set-auto` | Назначить автоматические ставки |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `bids-get` | `bids-get` | Получить ставки |
+| `bids-set` | `bids-set` | Назначить ставки |
+| `bids-set-auto` | `bids-set-auto` | Назначить автоматические ставки |
 
 ### Корректировки ставок
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_bidmodifiers_get` | `bidmodifiers-get` | Получить корректировки ставок |
-| `yd_bidmodifiers_add` | `bidmodifiers-add` | Добавить корректировки ставок |
-| `yd_bidmodifiers_delete` | `bidmodifiers-delete` | Удалить корректировки ставок |
-| `yd_bidmodifiers_set` | `bidmodifiers-set` | Установить корректировки ставок |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `bidmodifiers-get` | `bidmodifiers-get` | Получить корректировки ставок |
+| `bidmodifiers-add` | `bidmodifiers-add` | Добавить корректировки ставок |
+| `bidmodifiers-delete` | `bidmodifiers-delete` | Удалить корректировки ставок |
+| `bidmodifiers-set` | `bidmodifiers-set` | Установить корректировки ставок |
 
 ### Быстрые ссылки
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_sitelinks_get` | `sitelinks-get` | Получить наборы быстрых ссылок |
-| `yd_sitelinks_add` | `sitelinks-add` | Добавить наборы быстрых ссылок |
-| `yd_sitelinks_delete` | `sitelinks-delete` | Удалить наборы быстрых ссылок |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `sitelinks-get` | `sitelinks-get` | Получить наборы быстрых ссылок |
+| `sitelinks-add` | `sitelinks-add` | Добавить наборы быстрых ссылок |
+| `sitelinks-delete` | `sitelinks-delete` | Удалить наборы быстрых ссылок |
 
 ### Изображения
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_adimages_get` | `adimages-get` | Получить изображения |
-| `yd_adimages_add` | `adimages-add` | Добавить изображения |
-| `yd_adimages_delete` | `adimages-delete` | Удалить изображения |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `adimages-get` | `adimages-get` | Получить изображения |
+| `adimages-add` | `adimages-add` | Добавить изображения |
+| `adimages-delete` | `adimages-delete` | Удалить изображения |
 
 ### Видео
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_advideos_get` | `advideos-get` | Получить видео |
-| `yd_advideos_add` | `advideos-add` | Добавить видео |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `advideos-get` | `advideos-get` | Получить видео |
+| `advideos-add` | `advideos-add` | Добавить видео |
 
 ### Расширения объявлений
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_adextensions_get` | `adextensions-get` | Получить расширения (уточнения) |
-| `yd_adextensions_add` | `adextensions-add` | Добавить расширения (уточнения) |
-| `yd_adextensions_delete` | `adextensions-delete` | Удалить расширения (уточнения) |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `adextensions-get` | `adextensions-get` | Получить расширения (уточнения) |
+| `adextensions-add` | `adextensions-add` | Добавить расширения (уточнения) |
+| `adextensions-delete` | `adextensions-delete` | Удалить расширения (уточнения) |
 
 ### Условия нацеливания на аудиторию
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_audiencetargets_get` | `audiencetargets-get` | Получить условия нацеливания |
-| `yd_audiencetargets_add` | `audiencetargets-add` | Добавить условия нацеливания |
-| `yd_audiencetargets_delete` | `audiencetargets-delete` | Удалить условия нацеливания |
-| `yd_audiencetargets_suspend` | `audiencetargets-suspend` | Остановить условия нацеливания |
-| `yd_audiencetargets_resume` | `audiencetargets-resume` | Возобновить условия нацеливания |
-| `yd_audiencetargets_set_bids` | `audiencetargets-set-bids` | Назначить ставки для условий нацеливания |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `audiencetargets-get` | `audiencetargets-get` | Получить условия нацеливания |
+| `audiencetargets-add` | `audiencetargets-add` | Добавить условия нацеливания |
+| `audiencetargets-delete` | `audiencetargets-delete` | Удалить условия нацеливания |
+| `audiencetargets-suspend` | `audiencetargets-suspend` | Остановить условия нацеливания |
+| `audiencetargets-resume` | `audiencetargets-resume` | Возобновить условия нацеливания |
+| `audiencetargets-set-bids` | `audiencetargets-set-bids` | Назначить ставки для условий нацеливания |
 
 ### Условия ретаргетинга
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_retargetinglists_get` | `retargetinglists-get` | Получить условия ретаргетинга |
-| `yd_retargetinglists_add` | `retargetinglists-add` | Добавить условия ретаргетинга |
-| `yd_retargetinglists_update` | `retargetinglists-update` | Обновить условия ретаргетинга |
-| `yd_retargetinglists_delete` | `retargetinglists-delete` | Удалить условия ретаргетинга |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `retargetinglists-get` | `retargetinglists-get` | Получить условия ретаргетинга |
+| `retargetinglists-add` | `retargetinglists-add` | Добавить условия ретаргетинга |
+| `retargetinglists-update` | `retargetinglists-update` | Обновить условия ретаргетинга |
+| `retargetinglists-delete` | `retargetinglists-delete` | Удалить условия ретаргетинга |
 
 ### Наборы минус-фраз
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_negkeywordsets_get` | `negkeywordsets-get` | Получить наборы минус-фраз |
-| `yd_negkeywordsets_add` | `negkeywordsets-add` | Добавить наборы минус-фраз |
-| `yd_negkeywordsets_update` | `negkeywordsets-update` | Обновить наборы минус-фраз |
-| `yd_negkeywordsets_delete` | `negkeywordsets-delete` | Удалить наборы минус-фраз |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `negkeywordsets-get` | `negkeywordsets-get` | Получить наборы минус-фраз |
+| `negkeywordsets-add` | `negkeywordsets-add` | Добавить наборы минус-фраз |
+| `negkeywordsets-update` | `negkeywordsets-update` | Обновить наборы минус-фраз |
+| `negkeywordsets-delete` | `negkeywordsets-delete` | Удалить наборы минус-фраз |
 
 ### Фиды
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_feeds_get` | `feeds-get` | Получить фиды (товарные каталоги) |
-| `yd_feeds_add` | `feeds-add` | Добавить фиды |
-| `yd_feeds_update` | `feeds-update` | Обновить фиды |
-| `yd_feeds_delete` | `feeds-delete` | Удалить фиды |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `feeds-get` | `feeds-get` | Получить фиды (товарные каталоги) |
+| `feeds-add` | `feeds-add` | Добавить фиды |
+| `feeds-update` | `feeds-update` | Обновить фиды |
+| `feeds-delete` | `feeds-delete` | Удалить фиды |
 
 ### Креативы
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_creatives_get` | `creatives-get` | Получить креативы |
-| `yd_creatives_add` | `creatives-add` | Добавить креативы |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `creatives-get` | `creatives-get` | Получить креативы |
+| `creatives-add` | `creatives-add` | Добавить креативы |
 
 ### Исследование ключевых фраз
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_keywordsresearch_deduplicate` | `keywordsresearch-deduplicate` | Удалить дубли ключевых фраз |
-| `yd_keywordsresearch_has_search_volume` | `keywordsresearch-has-search-volume` | Проверить частотность ключевых фраз |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `keywordsresearch-deduplicate` | `keywordsresearch-deduplicate` | Удалить дубли ключевых фраз |
+| `keywordsresearch-has-search-volume` | `keywordsresearch-has-search-volume` | Проверить частотность ключевых фраз |
 
 ### Заявки
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_leads_get` | `leads-get` | Получить заявки с Турбо-страниц |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `leads-get` | `leads-get` | Получить заявки с Турбо-страниц |
 
 ### Отслеживание изменений
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_changes_check` | `changes-check` | Проверить изменения объектов |
-| `yd_changes_check_dictionaries` | `changes-check-dictionaries` | Проверить изменения справочников |
-| `yd_changes_check_campaigns` | `changes-check-campaigns` | Проверить изменения кампаний |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `changes-check` | `changes-check` | Проверить изменения объектов |
+| `changes-check-dictionaries` | `changes-check-dictionaries` | Проверить изменения справочников |
+| `changes-check-campaigns` | `changes-check-campaigns` | Проверить изменения кампаний |
 
 ### Справочники
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_dictionaries_get` | `dictionaries-get` | Получить справочники (регионы, валюты, часовые пояса) |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `dictionaries-get` | `dictionaries-get` | Получить справочники (регионы, валюты, часовые пояса) |
 
 ### Клиенты
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_clients_get` | `clients-get` | Получить информацию о клиенте |
-| `yd_clients_update` | `clients-update` | Обновить настройки клиента |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `clients-get` | `clients-get` | Получить информацию о клиенте |
+| `clients-update` | `clients-update` | Обновить настройки клиента |
 
 ### Клиенты агентства
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_agencyclients_get` | `agencyclients-get` | Получить клиентов агентства |
-| `yd_agencyclients_add` | `agencyclients-add` | Добавить клиентов агентства |
-| `yd_agencyclients_update` | `agencyclients-update` | Обновить клиентов агентства |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `agencyclients-get` | `agencyclients-get` | Получить клиентов агентства |
+| `agencyclients-add` | `agencyclients-add` | Добавить клиентов агентства |
+| `agencyclients-update` | `agencyclients-update` | Обновить клиентов агентства |
 
 ### Турбо-страницы
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_turbopages_get` | `turbopages-get` | Получить Турбо-страницы |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `turbopages-get` | `turbopages-get` | Получить Турбо-страницы |
 
 ### Отчёты
 
-| Инструмент | CLI | Описание |
-|------------|-----|----------|
-| `yd_reports_get` | `reports-get` | Получить отчёт (TSV/CSV) |
+| Action ID | CLI | Описание |
+|-----------|-----|----------|
+| `reports-get` | `reports-get` | Получить отчёт (TSV/CSV) |
 
 ---
 
@@ -347,16 +347,18 @@ YD_TOKEN=ваш_токен
 
 #### Шаг 3. Проверить
 
-Попросите Claude: *«Покажи список кампаний»* — он вызовет `yd_campaigns_get`.
+Попросите Claude: *«Покажи список кампаний»* — он вызовет `yd_search`, получит схему `campaigns-get`, затем `yd_execute`.
 
 ### Примеры (MCP)
 
-- «Покажи все активные кампании» → `yd_campaigns_get`
-- «Останови кампании 123, 456» → `yd_campaigns_suspend`
-- «Покажи объявления кампании 789» → `yd_ads_get`
-- «Добавь ключевую фразу "купить телефон" в группу 111» → `yd_keywords_add`
-- «Получи справочник регионов» → `yd_dictionaries_get`
-- «Сделай отчёт по кампаниям за январь» → `yd_reports_get`
+Claude автоматически использует `yd_search` для поиска нужного действия, затем `yd_execute` для его выполнения:
+
+- «Покажи все активные кампании» → `yd_search("кампании")` → `yd_execute("campaigns-get", ...)`
+- «Останови кампании 123, 456» → `yd_search("остановить кампании")` → `yd_execute("campaigns-suspend", ...)`
+- «Покажи объявления кампании 789» → `yd_search("объявления")` → `yd_execute("ads-get", ...)`
+- «Добавь ключевую фразу» → `yd_search("ключевые слова добавить")` → `yd_execute("keywords-add", ...)`
+- «Получи справочник регионов» → `yd_search("справочники")` → `yd_execute("dictionaries-get", ...)`
+- «Сделай отчёт по кампаниям за январь» → `yd_search("отчёт")` → `yd_execute("reports-get", ...)`
 
 ---
 

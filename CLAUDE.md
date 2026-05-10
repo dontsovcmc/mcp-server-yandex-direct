@@ -41,13 +41,15 @@ GitHub Actions: `.github/workflows/test.yml`, `runs-on: self-hosted`. Токен
 src/mcp_server_yandex_direct/
 ├── __init__.py          # main(), версия, --env загрузка
 ├── __main__.py          # python -m entry point
-├── server.py            # FastMCP, все 79 tools
+├── server.py            # FastMCP, 2 tools: yd_search + yd_execute
+├── actions.py           # Каталог 79 действий (Action dataclass + ACTIONS dict)
 ├── yd_api.py            # HTTP-клиент Yandex Direct API v5
 ├── models/              # Pydantic-модели запросов/ответов
 │   ├── common.py        # Общие типы (IdsCriteria, LimitOffset, ActionResult)
 │   ├── campaigns.py     # Модели кампаний
 │   ├── ads.py           # Модели объявлений
-│   └── ...              # 22 файла — по одному на каждый сервис API
+│   ├── reports.py       # ReportsGetBody (тело запроса отчёта)
+│   └── ...              # 23 файла — по одному на каждый сервис API
 └── cli.py               # CLI-интерфейс (79 команд)
 ```
 
@@ -57,7 +59,7 @@ src/mcp_server_yandex_direct/
 - Base URL: `https://api.direct.yandex.com/json/v5/{service}`
 - Протокол: JSON-RPC-like — POST `{"method": "...", "params": {...}}`
 - Авторизация: `Authorization: Bearer {token}` (OAuth 2.0)
-- 22 сервиса, 79 tools (включая Reports)
+- 22 сервиса, 79 действий в каталоге (search+execute паттерн)
 
 ### Переменные окружения
 

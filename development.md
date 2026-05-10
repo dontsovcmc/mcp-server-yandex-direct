@@ -72,8 +72,37 @@ raise RuntimeError(f"GET {path} -> {resp.status_code}: {resp.text}")
 
 - **Singleton API-клиент.** Кэшировать экземпляр HTTP-клиента в `server._api_instance` (один экземпляр на процесс). Не создавать новый API-клиент на каждый вызов.
 - **Таймауты** — 30 секунд на обычные запросы, 120 секунд на отчёты. Настраиваемы через env-переменные (`YD_TIMEOUT`, `YD_FILE_TIMEOUT`). В коде использовать `self.timeout` и `self.file_timeout`, не хардкодить числа.
-- **Tool-функции самодостаточны** — каждая вызывает `_get_api()` сама. Это допустимое повторение, а не дублирование. Не выносить в декораторы/контекстные менеджеры.
 - **Server instructions.** Передавать `instructions=` в FastMCP, чтобы LLM знал как использовать сервер (какие инструменты вызывать первыми, как искать действия).
+
+### Search+Execute паттерн
+
+Вместо 79 отдельных MCP-инструментов сервер реализует паттерн **search+execute** — 2 инструмента вместо 79:
+
+1. **`yd_search(query, domain, limit)`** — ищет действия по запросу, возвращает список с `params_schema` (полная JSON Schema из Pydantic-модели). LLM вызывает первым.
+2. **`yd_execute(action, params_json)`** — выполняет действие по ID из `yd_search`. Валидирует `params_json` через Pydantic-модель.
+
+Преимущества:
+- **~500 токенов** схем вместо ~50k — контекст не засоряется.
+- **Полная типизация** — Pydantic-схемы с `Field(description=...)` приходят по запросу через `yd_search`.
+
+Каталог всех 79 действий — в `actions.py`. Каждое действие — `Action(frozen dataclass)`:
+
+```python
+@dataclass(frozen=True, slots=True)
+class Action:
+    id: str            # kebab-case: "campaigns-get"
+    domain: str        # группа: "campaigns", "bidding", "assets", ...
+    description: str   # описание на русском
+    params_model: type[BaseModel] | None  # Pydantic-модель или None
+    api_method: str    # метод YandexDirectAPI: "campaigns_get"
+    is_destructive: bool = False
+    keywords: list[str] = field(default_factory=list)
+```
+
+`_dispatch()` в `server.py` использует `inspect.signature()` для определения соглашения вызова:
+- Большинство методов: `method(params: dict)` → `method(data)`
+- `reports_get(body, extra_headers)` → `method(**data)`
+- TSV-результат отчётов оборачивается в `{"result": tsv_string}`
 
 ## Pydantic-модели
 
@@ -93,17 +122,19 @@ raise RuntimeError(f"GET {path} -> {resp.status_code}: {resp.text}")
 - **Мокаем API-клиент** на уровне класса: `@patch("mcp_server_yandex_direct.server.YandexDirectAPI")`. Кэш API сбрасывается автоматически через фикстуру в `conftest.py`.
 - **Пути в тестах** — использовать `os.path.realpath()` для сравнения путей (на macOS `/tmp` → `/private/tmp`). Temp-файлы создавать в `/tmp` явно: `NamedTemporaryFile(dir="/tmp")`.
 - **Тестовые данные** — вымышленные ИНН, счета, имена, токены. Никаких реальных персональных данных.
-- **Обязательное покрытие** для каждого нового инструмента:
-  1. **Happy path** — штатный вызов с корректными данными.
-  2. **Невалидный JSON** — если инструмент принимает `*_json` параметр.
-  3. **Ошибка API** — мок бросает `RuntimeError`, инструмент возвращает `isError=True`.
-  4. **Path traversal** — если инструмент принимает `output_path` или `file_path`.
+- **Обязательное покрытие** для `yd_search` / `yd_execute`:
+  1. **Happy path** — штатный вызов через `yd_execute` с корректным `params_json`.
+  2. **Невалидный JSON** — `yd_execute` с `params_json="invalid"` → `isError=True`.
+  3. **Ошибка API** — мок бросает `RuntimeError`, `yd_execute` возвращает `isError=True`.
+  4. **test_catalog_integrity** — проверяет что все 79 action ID, `api_method` и `params_model` корректны.
+- При добавлении новых действий в `actions.py` достаточно обновить `test_catalog_has_79_actions` (счётчик) — остальное покрывается integrity-тестом.
 
 ## Именование
 
 - **CLI — kebab-case** (`campaigns-get`, `ads-add`). Стандартная конвенция CLI-инструментов.
-- **MCP tools — snake_case с префиксом** сервиса (`yd_campaigns_get`, `yd_ads_add`). Префикс нужен для уникальности — у клиента может быть много MCP-серверов, имена не должны конфликтовать.
-- **Паритет CLI и MCP.** Каждый MCP-инструмент должен иметь CLI-аналог. При добавлении нового tool — добавлять CLI-команду одновременно.
+- **Action ID — kebab-case** (`campaigns-get`, `ads-suspend`). Совпадает с CLI-командами для единообразия.
+- **MCP tools** — только 2: `yd_search` и `yd_execute`. Префикс `yd_` обеспечивает уникальность среди других MCP-серверов.
+- **Паритет CLI и Actions.** Каждая CLI-команда должна иметь соответствующий `Action` в `actions.py`. При добавлении нового действия — добавлять в оба места одновременно.
 
 ## Документация
 
