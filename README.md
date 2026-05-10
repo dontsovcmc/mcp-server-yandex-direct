@@ -38,197 +38,197 @@ MCP-сервер, CLI-утилита и библиотека Pydantic-модел
 
 ### Кампании
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `campaigns-get` | `campaigns-get` | Получить список кампаний |
-| `campaigns-add` | `campaigns-add` | Создать кампании |
-| `campaigns-update` | `campaigns-update` | Обновить кампании |
-| `campaigns-delete` | `campaigns-delete` | Удалить кампании |
-| `campaigns-suspend` | `campaigns-suspend` | Остановить кампании |
-| `campaigns-resume` | `campaigns-resume` | Возобновить кампании |
-| `campaigns-archive` | `campaigns-archive` | Архивировать кампании |
-| `campaigns-unarchive` | `campaigns-unarchive` | Разархивировать кампании |
+| Команда | Описание |
+|---------|----------|
+| `campaigns-get` | Получить список кампаний |
+| `campaigns-add` | Создать кампании |
+| `campaigns-update` | Обновить кампании |
+| `campaigns-delete` | Удалить кампании |
+| `campaigns-suspend` | Остановить кампании |
+| `campaigns-resume` | Возобновить кампании |
+| `campaigns-archive` | Архивировать кампании |
+| `campaigns-unarchive` | Разархивировать кампании |
 
 ### Группы объявлений
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `adgroups-get` | `adgroups-get` | Получить группы объявлений |
-| `adgroups-add` | `adgroups-add` | Создать группы объявлений |
-| `adgroups-update` | `adgroups-update` | Обновить группы объявлений |
-| `adgroups-delete` | `adgroups-delete` | Удалить группы объявлений |
+| Команда | Описание |
+|---------|----------|
+| `adgroups-get` | Получить группы объявлений |
+| `adgroups-add` | Создать группы объявлений |
+| `adgroups-update` | Обновить группы объявлений |
+| `adgroups-delete` | Удалить группы объявлений |
 
 ### Объявления
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `ads-get` | `ads-get` | Получить объявления |
-| `ads-add` | `ads-add` | Создать объявления |
-| `ads-update` | `ads-update` | Обновить объявления |
-| `ads-delete` | `ads-delete` | Удалить объявления |
-| `ads-suspend` | `ads-suspend` | Остановить объявления |
-| `ads-resume` | `ads-resume` | Возобновить объявления |
-| `ads-archive` | `ads-archive` | Архивировать объявления |
-| `ads-unarchive` | `ads-unarchive` | Разархивировать объявления |
-| `ads-moderate` | `ads-moderate` | Отправить объявления на модерацию |
+| Команда | Описание |
+|---------|----------|
+| `ads-get` | Получить объявления |
+| `ads-add` | Создать объявления |
+| `ads-update` | Обновить объявления |
+| `ads-delete` | Удалить объявления |
+| `ads-suspend` | Остановить объявления |
+| `ads-resume` | Возобновить объявления |
+| `ads-archive` | Архивировать объявления |
+| `ads-unarchive` | Разархивировать объявления |
+| `ads-moderate` | Отправить объявления на модерацию |
 
 ### Ключевые фразы
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `keywords-get` | `keywords-get` | Получить ключевые фразы |
-| `keywords-add` | `keywords-add` | Добавить ключевые фразы |
-| `keywords-update` | `keywords-update` | Обновить ключевые фразы |
-| `keywords-delete` | `keywords-delete` | Удалить ключевые фразы |
-| `keywords-suspend` | `keywords-suspend` | Остановить ключевые фразы |
-| `keywords-resume` | `keywords-resume` | Возобновить ключевые фразы |
+| Команда | Описание |
+|---------|----------|
+| `keywords-get` | Получить ключевые фразы |
+| `keywords-add` | Добавить ключевые фразы |
+| `keywords-update` | Обновить ключевые фразы |
+| `keywords-delete` | Удалить ключевые фразы |
+| `keywords-suspend` | Остановить ключевые фразы |
+| `keywords-resume` | Возобновить ключевые фразы |
 
 ### Ставки
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `bids-get` | `bids-get` | Получить ставки |
-| `bids-set` | `bids-set` | Назначить ставки |
-| `bids-set-auto` | `bids-set-auto` | Назначить автоматические ставки |
+| Команда | Описание |
+|---------|----------|
+| `bids-get` | Получить ставки |
+| `bids-set` | Назначить ставки |
+| `bids-set-auto` | Назначить автоматические ставки |
 
 ### Корректировки ставок
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `bidmodifiers-get` | `bidmodifiers-get` | Получить корректировки ставок |
-| `bidmodifiers-add` | `bidmodifiers-add` | Добавить корректировки ставок |
-| `bidmodifiers-delete` | `bidmodifiers-delete` | Удалить корректировки ставок |
-| `bidmodifiers-set` | `bidmodifiers-set` | Установить корректировки ставок |
+| Команда | Описание |
+|---------|----------|
+| `bidmodifiers-get` | Получить корректировки ставок |
+| `bidmodifiers-add` | Добавить корректировки ставок |
+| `bidmodifiers-delete` | Удалить корректировки ставок |
+| `bidmodifiers-set` | Установить корректировки ставок |
 
 ### Быстрые ссылки
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `sitelinks-get` | `sitelinks-get` | Получить наборы быстрых ссылок |
-| `sitelinks-add` | `sitelinks-add` | Добавить наборы быстрых ссылок |
-| `sitelinks-delete` | `sitelinks-delete` | Удалить наборы быстрых ссылок |
+| Команда | Описание |
+|---------|----------|
+| `sitelinks-get` | Получить наборы быстрых ссылок |
+| `sitelinks-add` | Добавить наборы быстрых ссылок |
+| `sitelinks-delete` | Удалить наборы быстрых ссылок |
 
 ### Изображения
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `adimages-get` | `adimages-get` | Получить изображения |
-| `adimages-add` | `adimages-add` | Добавить изображения |
-| `adimages-delete` | `adimages-delete` | Удалить изображения |
+| Команда | Описание |
+|---------|----------|
+| `adimages-get` | Получить изображения |
+| `adimages-add` | Добавить изображения |
+| `adimages-delete` | Удалить изображения |
 
 ### Видео
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `advideos-get` | `advideos-get` | Получить видео |
-| `advideos-add` | `advideos-add` | Добавить видео |
+| Команда | Описание |
+|---------|----------|
+| `advideos-get` | Получить видео |
+| `advideos-add` | Добавить видео |
 
 ### Расширения объявлений
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `adextensions-get` | `adextensions-get` | Получить расширения (уточнения) |
-| `adextensions-add` | `adextensions-add` | Добавить расширения (уточнения) |
-| `adextensions-delete` | `adextensions-delete` | Удалить расширения (уточнения) |
+| Команда | Описание |
+|---------|----------|
+| `adextensions-get` | Получить расширения (уточнения) |
+| `adextensions-add` | Добавить расширения (уточнения) |
+| `adextensions-delete` | Удалить расширения (уточнения) |
 
 ### Условия нацеливания на аудиторию
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `audiencetargets-get` | `audiencetargets-get` | Получить условия нацеливания |
-| `audiencetargets-add` | `audiencetargets-add` | Добавить условия нацеливания |
-| `audiencetargets-delete` | `audiencetargets-delete` | Удалить условия нацеливания |
-| `audiencetargets-suspend` | `audiencetargets-suspend` | Остановить условия нацеливания |
-| `audiencetargets-resume` | `audiencetargets-resume` | Возобновить условия нацеливания |
-| `audiencetargets-set-bids` | `audiencetargets-set-bids` | Назначить ставки для условий нацеливания |
+| Команда | Описание |
+|---------|----------|
+| `audiencetargets-get` | Получить условия нацеливания |
+| `audiencetargets-add` | Добавить условия нацеливания |
+| `audiencetargets-delete` | Удалить условия нацеливания |
+| `audiencetargets-suspend` | Остановить условия нацеливания |
+| `audiencetargets-resume` | Возобновить условия нацеливания |
+| `audiencetargets-set-bids` | Назначить ставки для условий нацеливания |
 
 ### Условия ретаргетинга
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `retargetinglists-get` | `retargetinglists-get` | Получить условия ретаргетинга |
-| `retargetinglists-add` | `retargetinglists-add` | Добавить условия ретаргетинга |
-| `retargetinglists-update` | `retargetinglists-update` | Обновить условия ретаргетинга |
-| `retargetinglists-delete` | `retargetinglists-delete` | Удалить условия ретаргетинга |
+| Команда | Описание |
+|---------|----------|
+| `retargetinglists-get` | Получить условия ретаргетинга |
+| `retargetinglists-add` | Добавить условия ретаргетинга |
+| `retargetinglists-update` | Обновить условия ретаргетинга |
+| `retargetinglists-delete` | Удалить условия ретаргетинга |
 
 ### Наборы минус-фраз
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `negkeywordsets-get` | `negkeywordsets-get` | Получить наборы минус-фраз |
-| `negkeywordsets-add` | `negkeywordsets-add` | Добавить наборы минус-фраз |
-| `negkeywordsets-update` | `negkeywordsets-update` | Обновить наборы минус-фраз |
-| `negkeywordsets-delete` | `negkeywordsets-delete` | Удалить наборы минус-фраз |
+| Команда | Описание |
+|---------|----------|
+| `negkeywordsets-get` | Получить наборы минус-фраз |
+| `negkeywordsets-add` | Добавить наборы минус-фраз |
+| `negkeywordsets-update` | Обновить наборы минус-фраз |
+| `negkeywordsets-delete` | Удалить наборы минус-фраз |
 
 ### Фиды
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `feeds-get` | `feeds-get` | Получить фиды (товарные каталоги) |
-| `feeds-add` | `feeds-add` | Добавить фиды |
-| `feeds-update` | `feeds-update` | Обновить фиды |
-| `feeds-delete` | `feeds-delete` | Удалить фиды |
+| Команда | Описание |
+|---------|----------|
+| `feeds-get` | Получить фиды (товарные каталоги) |
+| `feeds-add` | Добавить фиды |
+| `feeds-update` | Обновить фиды |
+| `feeds-delete` | Удалить фиды |
 
 ### Креативы
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `creatives-get` | `creatives-get` | Получить креативы |
-| `creatives-add` | `creatives-add` | Добавить креативы |
+| Команда | Описание |
+|---------|----------|
+| `creatives-get` | Получить креативы |
+| `creatives-add` | Добавить креативы |
 
 ### Исследование ключевых фраз
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `keywordsresearch-deduplicate` | `keywordsresearch-deduplicate` | Удалить дубли ключевых фраз |
-| `keywordsresearch-has-search-volume` | `keywordsresearch-has-search-volume` | Проверить частотность ключевых фраз |
+| Команда | Описание |
+|---------|----------|
+| `keywordsresearch-deduplicate` | Удалить дубли ключевых фраз |
+| `keywordsresearch-has-search-volume` | Проверить частотность ключевых фраз |
 
 ### Заявки
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `leads-get` | `leads-get` | Получить заявки с Турбо-страниц |
+| Команда | Описание |
+|---------|----------|
+| `leads-get` | Получить заявки с Турбо-страниц |
 
 ### Отслеживание изменений
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `changes-check` | `changes-check` | Проверить изменения объектов |
-| `changes-check-dictionaries` | `changes-check-dictionaries` | Проверить изменения справочников |
-| `changes-check-campaigns` | `changes-check-campaigns` | Проверить изменения кампаний |
+| Команда | Описание |
+|---------|----------|
+| `changes-check` | Проверить изменения объектов |
+| `changes-check-dictionaries` | Проверить изменения справочников |
+| `changes-check-campaigns` | Проверить изменения кампаний |
 
 ### Справочники
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `dictionaries-get` | `dictionaries-get` | Получить справочники (регионы, валюты, часовые пояса) |
+| Команда | Описание |
+|---------|----------|
+| `dictionaries-get` | Получить справочники (регионы, валюты, часовые пояса) |
 
 ### Клиенты
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `clients-get` | `clients-get` | Получить информацию о клиенте |
-| `clients-update` | `clients-update` | Обновить настройки клиента |
+| Команда | Описание |
+|---------|----------|
+| `clients-get` | Получить информацию о клиенте |
+| `clients-update` | Обновить настройки клиента |
 
 ### Клиенты агентства
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `agencyclients-get` | `agencyclients-get` | Получить клиентов агентства |
-| `agencyclients-add` | `agencyclients-add` | Добавить клиентов агентства |
-| `agencyclients-update` | `agencyclients-update` | Обновить клиентов агентства |
+| Команда | Описание |
+|---------|----------|
+| `agencyclients-get` | Получить клиентов агентства |
+| `agencyclients-add` | Добавить клиентов агентства |
+| `agencyclients-update` | Обновить клиентов агентства |
 
 ### Турбо-страницы
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `turbopages-get` | `turbopages-get` | Получить Турбо-страницы |
+| Команда | Описание |
+|---------|----------|
+| `turbopages-get` | Получить Турбо-страницы |
 
 ### Отчёты
 
-| Action ID | CLI | Описание |
-|-----------|-----|----------|
-| `reports-get` | `reports-get` | Получить отчёт (TSV/CSV) |
+| Команда | Описание |
+|---------|----------|
+| `reports-get` | Получить отчёт (TSV/CSV) |
 
 ---
 
