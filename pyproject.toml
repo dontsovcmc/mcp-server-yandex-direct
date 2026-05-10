@@ -1,6 +1,6 @@
 [project]
 name = "mcp-server-yandex-direct"
-version = "0.2.0"
+version = "0.3.0"
 description = "MCP server for Yandex Direct API v5 — campaigns, ads, keywords, bids, audiences"
 readme = "README.md"
 license = {text = "MIT"}

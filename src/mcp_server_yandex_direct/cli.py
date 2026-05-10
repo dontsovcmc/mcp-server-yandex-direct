@@ -8,7 +8,13 @@ import argparse
 import sys
 
 from . import __version__
-from . import server
+from .actions import ACTIONS
+from .server import _dispatch, _get_api, _parse_json, _to_json
+
+
+def _ids_params(ids_str: str) -> dict:
+    """Convert comma-separated IDs string to SelectionCriteria dict."""
+    return {"SelectionCriteria": {"Ids": [int(x.strip()) for x in ids_str.split(",")]}}
 
 
 def main(argv: list[str] | None = None):
@@ -288,91 +294,38 @@ def main(argv: list[str] | None = None):
         parser.print_help()
         sys.exit(1)
 
-    handlers = {
-        "campaigns-get": lambda: print(server.yd_campaigns_get(args.params_json)),
-        "campaigns-add": lambda: print(server.yd_campaigns_add(args.params_json)),
-        "campaigns-update": lambda: print(server.yd_campaigns_update(args.params_json)),
-        "campaigns-delete": lambda: print(server.yd_campaigns_delete(args.ids)),
-        "campaigns-suspend": lambda: print(server.yd_campaigns_suspend(args.ids)),
-        "campaigns-resume": lambda: print(server.yd_campaigns_resume(args.ids)),
-        "campaigns-archive": lambda: print(server.yd_campaigns_archive(args.ids)),
-        "campaigns-unarchive": lambda: print(server.yd_campaigns_unarchive(args.ids)),
-        "adgroups-get": lambda: print(server.yd_adgroups_get(args.params_json)),
-        "adgroups-add": lambda: print(server.yd_adgroups_add(args.params_json)),
-        "adgroups-update": lambda: print(server.yd_adgroups_update(args.params_json)),
-        "adgroups-delete": lambda: print(server.yd_adgroups_delete(args.ids)),
-        "ads-get": lambda: print(server.yd_ads_get(args.params_json)),
-        "ads-add": lambda: print(server.yd_ads_add(args.params_json)),
-        "ads-update": lambda: print(server.yd_ads_update(args.params_json)),
-        "ads-delete": lambda: print(server.yd_ads_delete(args.ids)),
-        "ads-suspend": lambda: print(server.yd_ads_suspend(args.ids)),
-        "ads-resume": lambda: print(server.yd_ads_resume(args.ids)),
-        "ads-archive": lambda: print(server.yd_ads_archive(args.ids)),
-        "ads-unarchive": lambda: print(server.yd_ads_unarchive(args.ids)),
-        "ads-moderate": lambda: print(server.yd_ads_moderate(args.ids)),
-        "keywords-get": lambda: print(server.yd_keywords_get(args.params_json)),
-        "keywords-add": lambda: print(server.yd_keywords_add(args.params_json)),
-        "keywords-update": lambda: print(server.yd_keywords_update(args.params_json)),
-        "keywords-delete": lambda: print(server.yd_keywords_delete(args.ids)),
-        "keywords-suspend": lambda: print(server.yd_keywords_suspend(args.ids)),
-        "keywords-resume": lambda: print(server.yd_keywords_resume(args.ids)),
-        "bids-get": lambda: print(server.yd_bids_get(args.params_json)),
-        "bids-set": lambda: print(server.yd_bids_set(args.params_json)),
-        "bids-set-auto": lambda: print(server.yd_bids_set_auto(args.params_json)),
-        "bidmodifiers-get": lambda: print(server.yd_bidmodifiers_get(args.params_json)),
-        "bidmodifiers-add": lambda: print(server.yd_bidmodifiers_add(args.params_json)),
-        "bidmodifiers-delete": lambda: print(server.yd_bidmodifiers_delete(args.params_json)),
-        "bidmodifiers-set": lambda: print(server.yd_bidmodifiers_set(args.params_json)),
-        "sitelinks-get": lambda: print(server.yd_sitelinks_get(args.params_json)),
-        "sitelinks-add": lambda: print(server.yd_sitelinks_add(args.params_json)),
-        "sitelinks-delete": lambda: print(server.yd_sitelinks_delete(args.ids)),
-        "adimages-get": lambda: print(server.yd_adimages_get(args.params_json)),
-        "adimages-add": lambda: print(server.yd_adimages_add(args.params_json)),
-        "adimages-delete": lambda: print(server.yd_adimages_delete(args.params_json)),
-        "advideos-get": lambda: print(server.yd_advideos_get(args.params_json)),
-        "advideos-add": lambda: print(server.yd_advideos_add(args.params_json)),
-        "adextensions-get": lambda: print(server.yd_adextensions_get(args.params_json)),
-        "adextensions-add": lambda: print(server.yd_adextensions_add(args.params_json)),
-        "adextensions-delete": lambda: print(server.yd_adextensions_delete(args.ids)),
-        "audiencetargets-get": lambda: print(server.yd_audiencetargets_get(args.params_json)),
-        "audiencetargets-add": lambda: print(server.yd_audiencetargets_add(args.params_json)),
-        "audiencetargets-delete": lambda: print(server.yd_audiencetargets_delete(args.ids)),
-        "audiencetargets-suspend": lambda: print(server.yd_audiencetargets_suspend(args.ids)),
-        "audiencetargets-resume": lambda: print(server.yd_audiencetargets_resume(args.ids)),
-        "audiencetargets-set-bids": lambda: print(server.yd_audiencetargets_set_bids(args.params_json)),
-        "retargetinglists-get": lambda: print(server.yd_retargetinglists_get(args.params_json)),
-        "retargetinglists-add": lambda: print(server.yd_retargetinglists_add(args.params_json)),
-        "retargetinglists-update": lambda: print(server.yd_retargetinglists_update(args.params_json)),
-        "retargetinglists-delete": lambda: print(server.yd_retargetinglists_delete(args.ids)),
-        "negkeywordsets-get": lambda: print(server.yd_negkeywordsets_get(args.params_json)),
-        "negkeywordsets-add": lambda: print(server.yd_negkeywordsets_add(args.params_json)),
-        "negkeywordsets-update": lambda: print(server.yd_negkeywordsets_update(args.params_json)),
-        "negkeywordsets-delete": lambda: print(server.yd_negkeywordsets_delete(args.ids)),
-        "feeds-get": lambda: print(server.yd_feeds_get(args.params_json)),
-        "feeds-add": lambda: print(server.yd_feeds_add(args.params_json)),
-        "feeds-update": lambda: print(server.yd_feeds_update(args.params_json)),
-        "feeds-delete": lambda: print(server.yd_feeds_delete(args.ids)),
-        "creatives-get": lambda: print(server.yd_creatives_get(args.params_json)),
-        "creatives-add": lambda: print(server.yd_creatives_add(args.params_json)),
-        "keywordsresearch-deduplicate": lambda: print(server.yd_keywordsresearch_deduplicate(args.params_json)),
-        "keywordsresearch-has-search-volume": lambda: print(server.yd_keywordsresearch_has_search_volume(args.params_json)),
-        "leads-get": lambda: print(server.yd_leads_get(args.params_json)),
-        "changes-check": lambda: print(server.yd_changes_check(args.params_json)),
-        "changes-check-dictionaries": lambda: print(server.yd_changes_check_dictionaries(args.params_json)),
-        "changes-check-campaigns": lambda: print(server.yd_changes_check_campaigns(args.params_json)),
-        "dictionaries-get": lambda: print(server.yd_dictionaries_get(args.names)),
-        "clients-get": lambda: print(server.yd_clients_get(args.params_json)),
-        "clients-update": lambda: print(server.yd_clients_update(args.params_json)),
-        "agencyclients-get": lambda: print(server.yd_agencyclients_get(args.params_json)),
-        "agencyclients-add": lambda: print(server.yd_agencyclients_add(args.params_json)),
-        "agencyclients-update": lambda: print(server.yd_agencyclients_update(args.params_json)),
-        "turbopages-get": lambda: print(server.yd_turbopages_get(args.params_json)),
-        "reports-get": lambda: print(server.yd_reports_get(args.params_json, args.headers_json)),
+    # Commands that take comma-separated integer IDs → SelectionCriteria
+    _ids_commands = {
+        "campaigns-delete", "campaigns-suspend", "campaigns-resume",
+        "campaigns-archive", "campaigns-unarchive",
+        "adgroups-delete",
+        "ads-delete", "ads-suspend", "ads-resume", "ads-archive", "ads-unarchive", "ads-moderate",
+        "keywords-delete", "keywords-suspend", "keywords-resume",
+        "sitelinks-delete",
+        "adextensions-delete",
+        "audiencetargets-delete", "audiencetargets-suspend", "audiencetargets-resume",
+        "retargetinglists-delete",
+        "negkeywordsets-delete",
+        "feeds-delete",
     }
 
-    handler = handlers.get(args.command)
-    if handler:
-        handler()
+    api = _get_api()
+
+    if args.command in _ids_commands:
+        params = _ids_params(args.ids)
+        print(_to_json(_dispatch(ACTIONS[args.command], api, params)))
+    elif args.command == "dictionaries-get":
+        params = {"DictionaryNames": [n.strip() for n in args.names.split(",")]}
+        print(_to_json(_dispatch(ACTIONS["dictionaries-get"], api, params)))
+    elif args.command == "changes-check-dictionaries":
+        print(_to_json(_dispatch(ACTIONS["changes-check-dictionaries"], api, {})))
+    elif args.command == "reports-get":
+        extra = _parse_json(args.headers_json, "headers_json") if args.headers_json != "{}" else None
+        params = {"body": _parse_json(args.params_json, "params_json"), "extra_headers": extra}
+        print(_to_json(_dispatch(ACTIONS["reports-get"], api, params)))
+    elif args.command in ACTIONS:
+        params = _parse_json(args.params_json, "params_json")
+        print(_to_json(_dispatch(ACTIONS[args.command], api, params)))
     else:
         parser.print_help()
         sys.exit(1)
