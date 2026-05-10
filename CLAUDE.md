@@ -51,6 +51,23 @@ src/mcp_server_yandex_direct/
 │   ├── reports.py       # ReportsGetBody (тело запроса отчёта)
 │   └── ...              # 23 файла — по одному на каждый сервис API
 └── cli.py               # CLI-интерфейс (79 команд)
+docs/
+├── campaigns.md         # 8 действий домена campaigns
+├── adgroups.md          # 4 действия домена adgroups
+├── ads.md               # 9 действий домена ads
+├── keywords.md          # 6 действий домена keywords
+├── bidding.md           # 7 действий домена bidding (bids + bidmodifiers)
+├── assets.md            # 11 действий домена assets (sitelinks + images + videos + extensions)
+├── audience.md          # 10 действий домена audience (audiencetargets + retargetinglists)
+├── negkeywords.md       # 4 действия домена negkeywords
+├── feeds.md             # 4 действия домена feeds
+├── creatives.md         # 2 действия домена creatives
+├── research.md          # 2 действия домена research
+├── leads.md             # 1 действие домена leads
+├── changes.md           # 3 действия домена changes
+├── account.md           # 6 действий домена account (dictionaries + clients + agencyclients)
+├── turbopages.md        # 1 действие домена turbopages
+└── reports.md           # 1 действие домена reports
 ```
 
 ### API Яндекс Директа
@@ -91,7 +108,7 @@ src/mcp_server_yandex_direct/
 ### README.md
 
 При изменениях в коде обновлять [README.md](README.md):
-- **Новый инструмент** — добавить строку в таблицу «Возможности» (MCP tool + CLI команда + описание).
+- **Новое действие** — добавить строку в соответствующий файл `docs/<domain>.md` и обновить счётчик в таблице «Доступные действия».
 - **Новая CLI-команда** — добавить в раздел «CLI-режим» → «Команды».
 - **Новая переменная окружения** — добавить в таблицу «Переменные окружения».
 - **Новый релиз** — обновить версию в бейджике.
